@@ -4,10 +4,29 @@ require 'sqlite3'
 require_relative "../lib/song.rb"
 require_relative "../config/environment.rb"
 
-
+puts "+++ New Song! +++"
 song = Song.new(name: "Hello", album: "25")
-puts "song name: " + song.name
-puts "song album: " + song.album
+puts "- Name: " + song.name
+puts "- Album: " + song.album
 song.save
 
-DB[:conn].execute("SELECT * FROM songs")
+puts "\nAll songs in database: #{DB[:conn].execute("SELECT * FROM songs")}"
+puts "------------------\n\n"
+
+# Show table and column names
+puts "Database structure"
+puts "- Table name: #{Song.table_name}"
+puts "- Column names: #{Song.column_names.inspect}"
+puts "------------------\n\n"
+
+# Show object SQL info
+puts "Song-specific database information"
+puts "-'Hello' column names: #{song.col_names_for_insert}"
+puts "-'Hello' values: #{song.values_for_insert}"
+puts "------------------\n\n"
+
+# Insert and find new song
+song2 = Song.new(name: "I Love Me", album: "Thank You")
+song2.save
+puts "Find 'I Love Me':"
+puts Song.find_by_name("I Love Me")
