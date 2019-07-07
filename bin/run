@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby 
+#!/usr/bin/env ruby
 require 'sqlite3'
 
 require_relative "../lib/song.rb"
@@ -11,3 +11,9 @@ puts "song album: " + song.album
 song.save
 
 DB[:conn].execute("SELECT * FROM songs")
+
+
+cherry_attributes = {name: "Cherry", album: "Lust for Life"}
+cherry = Song.new(cherry_attributes)
+cherry.save
+# binding.pry
